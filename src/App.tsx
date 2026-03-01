@@ -264,10 +264,9 @@ export default function App() {
         title="Q&A"
       >
         <img
-          src="/Q%26A.png"
+          src="/faq-icon.png"
           alt="Q&A"
           className="w-8 h-8 object-contain"
-          style={{ imageRendering: 'auto' }}
         />
       </button>
 
