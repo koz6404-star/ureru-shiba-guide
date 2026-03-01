@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+:root {
+  --color-scheme: light dark;
+  --font-synthesis: none;
+  --text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* スマホのノッチ・ホームバー対応 */
+  --sat: env(safe-area-inset-top);
+  --sab: env(safe-area-inset-bottom);
+  --sal: env(safe-area-inset-left);
+  --sar: env(safe-area-inset-right);
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  /* iOSのバウンススクロール対策 */
+  overscroll-behavior-y: contain;
+}
+
+/* タッチ操作のボタンなど最低44px（Apple HIG推奨） */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* iOSでinputフォーカス時の自動ズーム防止（16px以上が目安） */
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="search"],
+input[type="tel"],
+textarea {
+  font-size: 16px;
+}
+
+@media (min-width: 768px) {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="search"],
+  input[type="tel"],
+  textarea {
+    font-size: inherit;
+  }
+}
+
+/* ダークモード */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
