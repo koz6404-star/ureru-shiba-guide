@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import { useApiKey } from '../hooks/useApiKey'
 import { AuthModal } from './AuthModal'
+import { supabase } from '../lib/supabase'
 
 interface SettingsModalProps {
   isOpen: boolean
@@ -54,26 +55,33 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 ログアウト
               </button>
             </div>
-          ) : (
-            <div className="mb-4 p-3 rounded-xl bg-amber-50 dark:bg-amber-900/20">
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+          ) : supabase ? (
+            <div className="mb-4 p-4 rounded-xl bg-amber-50 dark:bg-amber-900/20">
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
                 ログインするとAPIキー・プリセット・保存出品が端末間で同期されます
               </p>
-              <button
-                type="button"
-                onClick={() => { setAuthMode('login'); setAuthModalOpen(true); }}
-                className="text-sm font-medium text-amber-600 dark:text-amber-500"
-              >
-                ログイン
-              </button>
-              <span className="text-slate-400 mx-1">/</span>
-              <button
-                type="button"
-                onClick={() => { setAuthMode('signup'); setAuthModalOpen(true); }}
-                className="text-sm font-medium text-amber-600 dark:text-amber-500"
-              >
-                新規登録
-              </button>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('login'); setAuthModalOpen(true); }}
+                  className="touch-target flex-1 min-h-[44px] px-4 rounded-xl border-2 border-amber-500 text-amber-600 dark:text-amber-400 font-medium"
+                >
+                  ログイン
+                </button>
+                <button
+                  type="button"
+                  onClick={() => { setAuthMode('signup'); setAuthModalOpen(true); }}
+                  className="touch-target flex-1 min-h-[44px] px-4 rounded-xl bg-amber-500 text-white font-medium active:bg-amber-600"
+                >
+                  新規登録
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="mb-4 p-4 rounded-xl bg-slate-100 dark:bg-slate-700/50">
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                会員登録を使うには.envにSupabaseの設定が必要です
+              </p>
             </div>
           )}
 
