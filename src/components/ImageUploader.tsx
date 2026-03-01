@@ -2,7 +2,7 @@ import { useCallback, useRef, useState } from 'react'
 import { CameraCapture } from './CameraCapture'
 import type { ProcessedImage } from '../types'
 
-const ACCEPT_TYPES = 'image/jpeg,image/png'
+const ACCEPT_TYPES = 'image/jpeg,image/png,image/webp,image/heic'
 
 interface ImageUploaderProps {
   images: ProcessedImage[]
@@ -27,8 +27,8 @@ export function ImageUploader({ images, onImagesChange }: ImageUploaderProps) {
 
   const processFiles = useCallback((files: FileList | null) => {
     if (!files?.length) return
-    const validFiles = Array.from(files).filter(
-      (f) => f.type === 'image/jpeg' || f.type === 'image/png'
+    const validFiles = Array.from(files).filter((f) =>
+      ['image/jpeg', 'image/png', 'image/webp', 'image/heic', 'image/heif'].includes(f.type)
     )
     if (validFiles.length === 0) return
     const newImages = validFiles.map((f, i) =>
@@ -91,7 +91,7 @@ export function ImageUploader({ images, onImagesChange }: ImageUploaderProps) {
           onClick={handleClick}
           className="touch-target flex-1 min-h-[48px] px-6 py-3 rounded-xl border-2 border-slate-300 dark:border-slate-600 active:bg-slate-100 dark:active:bg-slate-800 transition-colors text-base"
         >
-          ファイルから選択
+          写真を選択
         </button>
       </div>
 
@@ -117,7 +117,6 @@ export function ImageUploader({ images, onImagesChange }: ImageUploaderProps) {
           ref={inputRef}
           type="file"
           accept={ACCEPT_TYPES}
-          capture="environment"
           multiple
           onChange={handleFileChange}
           className="hidden"
@@ -126,10 +125,10 @@ export function ImageUploader({ images, onImagesChange }: ImageUploaderProps) {
           ここにドラッグ＆ドロップ または タップして選択
         </p>
         <p className="text-slate-500 dark:text-slate-500 text-sm mt-2">
-          スマホではカメラ撮影も可能（保存せずそのまま取り込み）
+          スマホではフォトライブラリから選択も可能
         </p>
         <p className="text-slate-500 dark:text-slate-500 text-xs mt-1">
-          JPG・PNG対応（1枚目がトップ画像）
+          JPG・PNG・WebP・HEIC対応（1枚目がトップ画像）
         </p>
       </div>
 

@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import faqIcon from './assets/faq-icon.png'
 import { ImageUploader } from './components/ImageUploader'
 import { useSessionPersistence } from './hooks/useSessionPersistence'
 import { useEditPresets } from './hooks/useEditPresets'
@@ -264,7 +265,7 @@ export default function App() {
         title="Q&A"
       >
         <img
-          src="/faq-icon.png"
+          src={faqIcon}
           alt="Q&A"
           className="w-8 h-8 object-contain"
         />
